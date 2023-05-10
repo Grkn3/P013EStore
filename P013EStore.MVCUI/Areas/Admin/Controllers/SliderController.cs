@@ -1,46 +1,45 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using P013EStore.Core.Entities;
 using P013EStore.MVCUI.Utils;
 using P013EStore.Service.Abstract;
 
 namespace P013EStore.MVCUI.Areas.Admin.Controllers
 {
-    
-    public class CategoriesController : Controller
-    {
-        private readonly IService<Category> _service;
 
-        public CategoriesController(IService<Category> service)
+    [Area("Admin")]
+    public class SliderController : Controller
+    {
+        private readonly IService<Slider> _service;
+
+        public SliderController(IService<Slider> service)
         {
             _service = service;
         }
 
-        // GET: CategoriesController
+        // GET: SliderController
         public async Task<IActionResult> Index()
         {
             var model = await _service.GetAllAsync();
             return View(model);
         }
 
-        // GET: CategoriesController/Details/5
+        // GET: SliderController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CategoriesController/Create
-        public async Task<IActionResult> Create()
+        // GET: SliderController/Create
+        public ActionResult Create()
         {
-            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             return View();
         }
 
-        // POST: CategoriesController/Create
+        // POST: SliderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Category collection, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(Slider collection, IFormFile? Image)
         {
             try
             {
@@ -54,31 +53,21 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
             }
             catch
             {
-                ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
                 return View();
             }
         }
 
-        // GET: CategoriesController/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        // GET: SliderController/Edit/5
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null) // id gönderilmeden direk edit sayfası açılırsa
-            {
-                return BadRequest(); // geriye geçersiz istek hatası dön
-            }
-            var model = await _service.FindAsync(id.Value); // yukarıdaki id yi ? ile nullable yaparsak
-            if (model == null)
-            {
-                return NotFound(); // kayıt bulunamadı
-            }
-            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
-            return View(model);
+            var model = await _service.FindAsync(id);
+            return View();
         }
 
-        // POST: CategoriesController/Edit/5
+        // POST: SliderController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Category collection, IFormFile? Image, bool? resmiSil)
+        public async Task<ActionResult> EditAsync(int id, Slider collection, IFormFile? Image, bool? resmiSil)
         {
             try
             {
@@ -94,32 +83,26 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
                 _service.Update(collection);
                 await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
-                
             }
             catch
             {
-                ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
                 return View();
             }
         }
 
-        // GET: CategoriesController/Delete/5
-        public async Task<ActionResult> DeleteAsync(int id)
+        // GET: SliderController/Delete/5
+        public ActionResult Delete(int id)
         {
-            var model = await _service.FindAsync(id);
-            return View(model);
+            return View();
         }
 
-        // POST: CategoriesController/Delete/5
+        // POST: SliderController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Category collection)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                FileHelper.FileRemover(collection.Image);
-                _service.Delete(collection);
-                _service.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch

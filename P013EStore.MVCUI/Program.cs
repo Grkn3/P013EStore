@@ -1,4 +1,4 @@
-using P013EStore.Data;
+﻿using P013EStore.Data;
 using P013EStore.Service.Abstract;
 using P013EStore.Service.Concrete;
 
@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+
+
+builder.Services.AddTransient<IProductService, ProductService>(); //Product için yazdığımız özel servici uygulamaya tanıttık
 
 var app = builder.Build();
 
