@@ -1,6 +1,7 @@
 ﻿using P013EStore.Data;
 using P013EStore.Service.Abstract;
 using P013EStore.Service.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;//oturum işlemleri için
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,20 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
 
 builder.Services.AddTransient<IProductService, ProductService>(); //Product için yazdığımız özel servici uygulamaya tanıttık
 
+//Uygulama admin paneli için oturum açma ayarları
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login"; // oturum açmayan kullanıcıların giriş için gönderileceği adres 
+    x.LogoutPath = "/Admin/Logout";
+    x.AccessDeniedPath = "/AccessDenied"; // yetkilendirme ile ekrana erişim hakk olmayan kullanıcıların gönderileceği sayfa
+    x.Cookie.Name = "Administrator"; // Oluşacak Kukinin ismi 
+    x.Cookie.MaxAge = TimeSpan.FromDays(1); // Oluşsacak kukinin yaşam süresi (1 gün)
+
+}); // oturum işlemleri için
+
+//Uygulama admin paneli için admin yetkilendirme ayarları
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +40,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); //Dikkat! önce UseAuthentication satırı gelmeli sonra UseAuthorization
 app.UseAuthorization();
 
 app.MapControllerRoute(
