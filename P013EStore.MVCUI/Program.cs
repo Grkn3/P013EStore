@@ -27,7 +27,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 }); // oturum işlemleri için
 
 //Uygulama admin paneli için admin yetkilendirme ayarları
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", p => p.RequireClaim("Role", "Admin")); // admin paneline giriş yapma yetkisine sahip olanları bu kuralla kontrol edeceğiz.
+    x.AddPolicy("UserPolicy", p => p.RequireClaim("Role", "User")); // admin dışında yetkilendirme kullanırsak bu kuralı kullanabiliriz(siteye üye girişi yapanları ön yüzde bir panele eriştirme gibi)
+});
 
 var app = builder.Build();
 
