@@ -9,11 +9,11 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
 {
 
     [Area("Admin"), Authorize(Policy = "AdminPolicy")]
-    public class SliderController : Controller
+    public class SlidersController : Controller
     {
         private readonly IService<Slider> _service;
 
-        public SliderController(IService<Slider> service)
+        public SlidersController(IService<Slider> service)
         {
             _service = service;
         }
