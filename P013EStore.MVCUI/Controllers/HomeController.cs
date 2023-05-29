@@ -10,11 +10,13 @@ namespace P013EStore.MVCUI.Controllers
     {
         private readonly IService<Slider> _serviceSlider;
         private readonly IService<Product> _serviceProduct;
+        private readonly IService<Contact> _serviceContact;
 
-        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct)
+        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact)
         {
             _serviceSlider = serviceSlider;
             _serviceProduct = serviceProduct;
+            _serviceContact = serviceContact;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -29,6 +31,35 @@ namespace P013EStore.MVCUI.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+        [Route("İletisim")]
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        [Route("İletisim"), HttpPost]
+        public async Task<IActionResult> ContactUsAsync(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _serviceContact.AddAsync(contact);
+                    var sonuc = await _serviceContact.SaveAsync();
+                    if (sonuc > 0)
+                    {
+                        //await MailHelper.SendMailAsync(contact)
+                        TempData["Message"] = "<div class='alert alert-success'>Mesajınız Gönderildi! Teşekkürler..</div>";
+                        return RedirectToAction("ContactUs");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
             return View();
         }
         [Route("AccessDenied")]
