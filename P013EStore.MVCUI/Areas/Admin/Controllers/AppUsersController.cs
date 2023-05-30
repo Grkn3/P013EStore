@@ -49,8 +49,9 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu");
             }
+            return View(collection);
         }
 
         // GET: AppUsersController/Edit/5
