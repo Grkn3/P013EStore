@@ -9,12 +9,7 @@
         <h1>Hesap Yönetimi</h1>
         <hr />
         <form asp-action="UpdateUser">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="CreateDate" />
-            <input type="hidden" asp-for="UserGuid" />
-            <input type="hidden" asp-for="IsActive" />
-            <input type="hidden" asp-for="IsAdmin" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>          
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
