@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.Data", "P013ESto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.Service", "P013EStore.Service\P013EStore.Service.csproj", "{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P013EStore.WebAPI", "P013EStore.WebAPI\P013EStore.WebAPI.csproj", "{91D34F33-D8F9-4BE8-933F-1E7DAE1C6621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.WebAPI", "P013EStore.WebAPI\P013EStore.WebAPI.csproj", "{91D34F33-D8F9-4BE8-933F-1E7DAE1C6621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P013EStore.WebAPIUsing", "P013EStore.WebAPIUsing\P013EStore.WebAPIUsing.csproj", "{612B09A4-4C61-43E4-9C74-825F23B74F8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{91D34F33-D8F9-4BE8-933F-1E7DAE1C6621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D34F33-D8F9-4BE8-933F-1E7DAE1C6621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91D34F33-D8F9-4BE8-933F-1E7DAE1C6621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{612B09A4-4C61-43E4-9C74-825F23B74F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{612B09A4-4C61-43E4-9C74-825F23B74F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{612B09A4-4C61-43E4-9C74-825F23B74F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{612B09A4-4C61-43E4-9C74-825F23B74F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
